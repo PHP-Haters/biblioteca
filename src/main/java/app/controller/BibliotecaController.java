@@ -57,7 +57,7 @@ public class BibliotecaController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable int id){
+    public ResponseEntity<String> deleteById(@PathVariable int id){
         try {
             String resposta = this.bibliotecaService.deleteById(id);
 
@@ -68,4 +68,18 @@ public class BibliotecaController {
             return new ResponseEntity<String>("Erro interno ao deletar biblioteca!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> update(@PathVariable int id, @RequestBody Biblioteca biblioteca){
+        try {
+            String response = this.bibliotecaService.update(id, biblioteca);
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Erro interno ao editar biblioteca!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

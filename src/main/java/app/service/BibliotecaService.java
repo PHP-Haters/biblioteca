@@ -54,4 +54,19 @@ public class BibliotecaService {
         repository.deleteById(id);
         return "Sucesso ao deletar biblioteca.";
     }
+
+    public String update(int id, Biblioteca biblioteca) {
+        // Checa se todos os campos da biblioteca foram preenchidos
+        if (biblioteca.getNome() == null || biblioteca.getTelefone() == null) {
+            throw new IllegalArgumentException("Envie um novo nome e telefone para a biblioteca.");
+        }
+
+        // Checa se a biblioteca existe
+        if (repository.findById(id) == null) {
+            throw new IllegalArgumentException("Não há nenhuma bibioteca com o id especificado.");
+        }
+
+        repository.update(id, biblioteca);
+        return "Sucesso ao editar biblioteca.";
+    }
 }

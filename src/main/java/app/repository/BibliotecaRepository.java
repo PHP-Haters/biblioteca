@@ -78,4 +78,16 @@ public class BibliotecaRepository {
             }
         }
     }
+
+    public void update(int id, Biblioteca novaBiblioteca) {
+        for (int i = 0; i < pseudoBibliotecasTable.size(); i++) {
+            Biblioteca bibliotecaAtual = pseudoBibliotecasTable.get(i);
+            if (bibliotecaAtual.getId() == id) {
+                // Garante que o ID permanece o mesmo
+                novaBiblioteca.setId(id);
+                pseudoBibliotecasTable.set(i, novaBiblioteca);
+                return;
+            }
+        }
+    }
 }
