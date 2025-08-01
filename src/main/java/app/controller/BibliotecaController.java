@@ -52,8 +52,20 @@ public class BibliotecaController {
         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            return new ResponseEntity<>("Erro interno ao buscar biblioteca!", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Erro interno ao buscar bibliotecas!", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable int id){
+        try {
+            String resposta = this.bibliotecaService.deleteById(id);
+
+            return new ResponseEntity<String>(resposta, HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<String>("Erro interno ao deletar biblioteca!", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

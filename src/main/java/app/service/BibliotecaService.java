@@ -41,6 +41,17 @@ public class BibliotecaService {
         }
 
         repository.save(biblioteca);
-        return "Sucesso ao salvar biblioteca";
+        return "Sucesso ao salvar biblioteca.";
+    }
+
+    public String deleteById(int id){
+        // Checa se a biblioteca realmente existe
+        Biblioteca biblioteca = repository.findById(id);
+        if (biblioteca == null) {
+            throw new IllegalArgumentException("Biblioteca com ID " + id + " não encontrada.");
+        }
+
+        repository.deleteById(id);
+        return "Sucesso ao deletar biblioteca.";
     }
 }

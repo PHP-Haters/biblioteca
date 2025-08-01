@@ -68,4 +68,14 @@ public class BibliotecaRepository {
     public void save(Biblioteca biblioteca) {
         pseudoBibliotecasTable.add(biblioteca);
     }
+
+    // Deleta a biblioteca encontrada com o id correspondente
+    public void deleteById(int id) {
+        for (int i = 0; i < pseudoBibliotecasTable.size(); i++) {
+            if (pseudoBibliotecasTable.get(i).getId() == id) {
+                pseudoBibliotecasTable.remove(i);
+                return;
+            }
+        }
+    }
 }
