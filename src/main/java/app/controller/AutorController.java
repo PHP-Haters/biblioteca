@@ -15,7 +15,7 @@ public class AutorController {
 
     public AutorController(AutorService autorService) { this.autorService = autorService; }
 
-    @GetMapping("/findAll")
+    @GetMapping({"", "/"})
     public ResponseEntity<List<Autor>> findAll() {
         try {
             var result = autorService.findAll();
@@ -25,7 +25,7 @@ public class AutorController {
         }
     }
 
-    @PostMapping("/save")
+    @PostMapping({"", "/"})
     public ResponseEntity<String> save(@RequestBody Autor autor) {
         try {
             String result = this.autorService.save(autor);
@@ -35,7 +35,7 @@ public class AutorController {
         }
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Autor> delete(@PathVariable Integer id) {
         try {
             autorService.delete(id);
@@ -45,7 +45,7 @@ public class AutorController {
         }
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Autor> update(@PathVariable Integer id, @RequestBody Autor autorUpdate) {
         try {
             var result = autorService.update(id, autorUpdate);

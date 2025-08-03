@@ -1,32 +1,35 @@
 package app.service;
 
 import app.repository.AutorRepository;
-import org.springframework.stereotype.Service;
-import jakarta.persistence.EntityNotFoundException;
 import app.model.Autor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class AutorService {
 
+    private final AutorRepository autorRepository;
+
     public AutorService(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;
     }
-
-    private final AutorRepository autorRepository;
 
     public List<Autor> findAll() {
         return autorRepository.findAll();
     }
 
     public String save(Autor autor) {
-        this.autorRepository.save(autor);
+        autorRepository.save(autor);
         return "Autor salvo!";
     }
 
     public Autor findById(Integer id) {
-        return autorRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException());
+        Autor autor = autorRepository.findById(id);
+        if (autor == null) {
+            throw new IllegalArgumentException("Autor não encontrado com o ID: " + id);
+        }
+        return autor;
     }
 
     public Autor update(Integer id, Autor autor) {
@@ -44,12 +47,12 @@ public class AutorService {
             update.setIdade(autor.getIdade());
         }
 
-        return autorRepository.save(update);
+        autorRepository.save(update);
+        return update;
     }
 
     public void delete(Integer id) {
         Autor delete = findById(id);
         autorRepository.delete(delete);
     }
-
 }
